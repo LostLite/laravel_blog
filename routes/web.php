@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Home\HomeSliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.index');
 });
 
 Route::get('/dashboard', function () {
@@ -34,6 +35,14 @@ Route::middleware('auth')->group(function () {
 
         });
     });
+
+    Route::controller(HomeSliderController::class)->group(function(){
+        Route::name('home.')->group(function(){
+            Route::get('home/slide', 'HomeSlider')->name('slide');
+            Route::post('home/slide', 'UpdateSlider')->name('slide.update');
+        });
+    });
+    
 });
 
 
